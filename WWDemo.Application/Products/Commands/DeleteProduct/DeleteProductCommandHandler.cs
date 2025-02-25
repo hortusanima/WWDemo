@@ -22,7 +22,7 @@ namespace WWDemo.Application.Products.Commands.DeleteProduct
         }
         public async Task<ProductRepresentation> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
         {
-            var result = await _productRepository.DeleteProduct(request.SerialNumber);
+            var result = await _productRepository.DeleteProductBySerialNumber(request.SerialNumber);
           
             return new ProductRepresentation { SerialNumber = result.SerialNumber };
         }
