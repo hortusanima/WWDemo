@@ -52,7 +52,7 @@ namespace WWDemo.Api.Controllers
             var result = await _mediator.Send(new GetProductBySerialNumberQuery()
 			{
 				SerialNumber = serialNumber.ToString()
-			});
+			});// map serial number
             
 			return result;
 		}
@@ -67,6 +67,7 @@ namespace WWDemo.Api.Controllers
             });
 
 			return Ok();
+			
 		}
 	}
 }

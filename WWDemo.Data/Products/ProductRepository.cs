@@ -53,7 +53,8 @@ namespace WWDemo.Data.Products
             return await GetQueryable().FirstOrDefaultAsync(x => x!.SerialNumber == serialNumber);
         }
 
-        public async Task<Product?> DeleteProduct(string serialNumber)
+
+        public async Task<Product?> DeleteProductBySerialNumber(string serialNumber)
         {
             var product = GetQueryable().FirstOrDefaultAsync(x => x!.SerialNumber == serialNumber);
             var result = _apiDbContext.Products.Remove(await product);
