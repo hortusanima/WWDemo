@@ -6,7 +6,9 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using WWDemo.Application.DTOs;
+using WWDemo.Application.Products.Commands.AddProduct;
 using WWDemo.Data.Products;
+using WWDemo.Models;
 
 namespace WWDemo.Application.Products.Commands.DeleteProduct
 {
@@ -18,12 +20,11 @@ namespace WWDemo.Application.Products.Commands.DeleteProduct
         {
             _productRepository = productRepository;
         }
-
-        public Task<ProductRepresentation> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
+        public async Task<ProductRepresentation> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
         {
+            var result = await _productRepository.DeleteProduct(request.SerialNumber);
           
-            var result =  _productRepository.DeleteProductBySerialNumber(request.SerialNumber);
-            return new ProductRepresentation { SerialNumber = result.Result.SerialNumber};
+            return new ProductRepresentation { SerialNumber = result.SerialNumber };
         }
     }
 }

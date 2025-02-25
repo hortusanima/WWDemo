@@ -53,11 +53,14 @@ namespace WWDemo.Data.Products
             return await GetQueryable().FirstOrDefaultAsync(x => x!.SerialNumber == serialNumber);
         }
 
+
         public async Task<Product?> DeleteProductBySerialNumber(string serialNumber)
         {
-           var result = GetQueryable().FirstOrDefaultAsync(x => x!.SerialNumber == serialNumber);
-           var resenje =  _apiDbContext.Products.Remove(await result);
-           return resenje.Entity;
+            var product = GetQueryable().FirstOrDefaultAsync(x => x!.SerialNumber == serialNumber);
+            var result = _apiDbContext.Products.Remove(await product);
+            await _apiDbContext.SaveChangesAsync();
+
+            return result.Entity;
         }
     }
 }

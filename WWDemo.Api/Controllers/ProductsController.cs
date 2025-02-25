@@ -57,16 +57,15 @@ namespace WWDemo.Api.Controllers
 			return result;
 		}
 
-		[HttpDelete]
-
-		public async Task<IActionResult> DeleteProduct(DeleteProductRequest request)
+		[HttpDelete("serial-number")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> DeleteProduct([FromRoute(Name = "serial-number")] int serialNumber)
 		{
-			await _mediator.Send(new DeleteProductCommand
-			{
-				SerialNumber = request.SerialNumber
-			});
+			await _mediator.Send(new DeleteProductCommand{
+                SerialNumber = serialNumber.ToString()
+            });
 
-			
 			return Ok();
 			
 		}
