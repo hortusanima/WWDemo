@@ -52,5 +52,12 @@ namespace WWDemo.Data.Products
         {
             return await GetQueryable().FirstOrDefaultAsync(x => x!.SerialNumber == serialNumber);
         }
+
+        public async Task<Product?> DeleteProductBySerialNumber(string serialNumber)
+        {
+           var result = GetQueryable().FirstOrDefaultAsync(x => x!.SerialNumber == serialNumber);
+           var resenje =  _apiDbContext.Products.Remove(await result);
+           return resenje.Entity;
+        }
     }
 }
