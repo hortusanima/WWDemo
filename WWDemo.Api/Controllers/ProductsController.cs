@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using WWDemo.Api.Requests;
 using WWDemo.Application.DTOs;
 using WWDemo.Application.Products.Commands.AddProduct;
+using WWDemo.Application.Products.Commands.DeleteProduct;
 using WWDemo.Application.Products.Queries.GetAllProducts;
 using WWDemo.Application.Products.Queries.GetProductBySerialNumber;
 
@@ -51,14 +52,20 @@ namespace WWDemo.Api.Controllers
             var result = await _mediator.Send(new GetProductBySerialNumberQuery()
 			{
 				SerialNumber = serialNumber.ToString()
-			});// map serial number
+			});
             
 			return result;
 		}
 
-		[HttpDelete]
-		public async Task<IActionResult> DeleteProduct()
+		[HttpDelete("serial-number")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> DeleteProduct([FromRoute(Name = "serial-number")] int serialNumber)
 		{
+			await _mediator.Send(new DeleteProductCommand{
+                SerialNumber = serialNumber.ToString()
+            });
+
 			return Ok();
 		}
 	}
